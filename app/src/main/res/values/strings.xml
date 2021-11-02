@@ -3,4 +3,5 @@
     <string name="error">error while getting data</string>
     <string name="address">Адрес:</string>
     <string name="title">Название объекта:</string>
+    <string name="item">item</string>
 </resources>

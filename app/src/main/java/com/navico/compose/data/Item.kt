@@ -2,6 +2,7 @@ package com.navico.compose.data
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.navigation.Navigator
 
 data class Item(
     val id: Int,
@@ -10,7 +11,7 @@ data class Item(
     val photo: String,
     val address: String,
     val location: Location
-) : Parcelable {
+) : Parcelable, Navigator.Extras {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString()!!,
