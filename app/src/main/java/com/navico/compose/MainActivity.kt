@@ -43,6 +43,8 @@ class MainActivity : ComponentActivity() {
 
     private var content: Item? = null
 
+    private var counter: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val poisLiveData = viewModel.obtainPois(this)
@@ -59,7 +61,10 @@ class MainActivity : ComponentActivity() {
                                 },
                                 navigationIcon = {
                                     IconButton(onClick = {
-                                        navController.popBackStack()
+                                        if(counter > 0) {
+                                            counter--
+                                            navController.popBackStack()
+                                        }
                                     }) {
                                         Icon(Icons.Filled.ArrowBack,"")
                                     }
@@ -93,6 +98,7 @@ class MainActivity : ComponentActivity() {
     @ExperimentalCoilApi
     @Composable
     private fun ItemComposable(navController: NavHostController) {
+        counter++
         Scaffold(modifier = Modifier.padding(16.dp), content = {
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -114,6 +120,9 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     fun TableComposable(navController: NavHostController, myItems: List<Item?>) {
+        if(counter > 0) {
+            counter--
+        }
         LazyColumn(
             modifier = Modifier
                 .padding(0.dp, 0.dp, 0.dp, 0.dp)
