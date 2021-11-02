@@ -21,6 +21,8 @@ import com.navico.compose.data.Item
 import com.navico.compose.ui.theme.NavicoComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -32,7 +34,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
-import com.google.gson.Gson
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -47,6 +48,7 @@ class MainActivity : ComponentActivity() {
         val poisLiveData = viewModel.obtainPois(this)
         setContent {
             NavicoComposeTheme {
+                val navController = rememberNavController()
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
                     Scaffold(
@@ -56,14 +58,19 @@ class MainActivity : ComponentActivity() {
                                     Text(text = getString(R.string.app_name))
                                 },
                                 navigationIcon = {
+                                    IconButton(onClick = {
+                                        navController.popBackStack()
+                                    }) {
+                                        Icon(Icons.Filled.ArrowBack,"")
+                                    }
                                 },
                                 backgroundColor = Color.Blue,
                                 contentColor = Color.White,
                                 elevation = 12.dp
                             )
+
                         }, content = {
                             val myItems: List<Item?> by poisLiveData.observeAsState(listOf())
-                            val navController = rememberNavController()
 
                             NavHost(
                                 navController = navController,
