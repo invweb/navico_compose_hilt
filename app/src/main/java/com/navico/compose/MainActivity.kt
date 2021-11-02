@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme.typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -85,7 +86,7 @@ class MainActivity : ComponentActivity() {
     @ExperimentalCoilApi
     @Composable
     private fun ItemComposable(navController: NavHostController) {
-        Scaffold(content = {
+        Scaffold(modifier = Modifier.padding(16.dp), content = {
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Top,
@@ -96,12 +97,10 @@ class MainActivity : ComponentActivity() {
                     contentDescription = null,
                     modifier = Modifier.size(256.dp)
                 )
-                Text(modifier = Modifier.padding(16.dp),
+                Text(style = typography.h6,
                     text = content!!.name)
-                Text(modifier = Modifier.padding(16.dp),
-                    text = content!!.address)
-                Text(modifier = Modifier.padding(16.dp),
-                    text = content!!.description)
+                Text(text = content!!.address)
+                Text(text = content!!.description)
             }
         })
     }
